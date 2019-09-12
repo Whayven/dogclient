@@ -16,7 +16,7 @@
       <div class="container">
         <h3>Vote for dog of the day</h3>
         <ul class="form">
-          <li v-for="dog in dogs" v-bind:key="dog._id">
+          <li v-for="dog in candidates" v-bind:key="dog._id">
             <input type="radio" :name="dog._id" :id="dog._id" :value="dog._id" v-model="picked" />
             <label for="dog._id">{{dog.breed}}</label>
           </li>
@@ -28,7 +28,7 @@
       <h3 class="title" style="margin-bottom: 0">Results</h3>
       <div class="container">
         <ul class="form" style="padding-left: 0">
-          <li v-for="dog in dogs" v-bind:key="dog._id">
+          <li v-for="dog in candidates" v-bind:key="dog._id">
             <p>{{dog.breed}} : {{dog.score}}</p>
           </li>
         </ul>
@@ -38,33 +38,27 @@
 </template>
 
 <script>
-import dogService from "../dogService";
 export default {
   data: function() {
     return {
       picked: "",
-      dogs: [],
-      error: "",
-      voted: false
+      error: ""
     };
+  },
+  props: {
+    candidates: Array,
+    voted: Boolean
   },
 
   methods: {
     async handleSubmit(id) {
       try {
-        await dogService.updateDog(id);
-        this.dogs = await dogService.getDogs();
-        this.voted = true;
+        if (id) {
+          this.$emit("submit", id);
+        }
       } catch (e) {
         this.error = e.message;
       }
-    }
-  },
-  async created() {
-    try {
-      this.dogs = await dogService.getDogs();
-    } catch (e) {
-      this.error = e.message;
     }
   }
 };

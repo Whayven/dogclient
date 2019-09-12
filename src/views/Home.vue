@@ -24,7 +24,7 @@
         <li>Golden Retriever</li>
         <li>Pitbull</li>
       </ul>
-      <ul class="dog-list-right">
+      <ul>
         <li>Akita</li>
         <li>American Foxhound</li>
         <li>Corgi</li>
@@ -51,7 +51,10 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  props: {
+    allDogs: Array
+  }
 };
 </script>
 
