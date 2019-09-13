@@ -1,14 +1,10 @@
 <template>
   <div>
     <h3 class="title">Dog of the Day</h3>
-    <div class="container">
-      <img
-        id="dotd"
-        src="https://media.tio.ch/files/domains/tio.ch/images/4bn4/l_-il-siberian-husky-arvm.jpg?v=1"
-        alt="Husky"
-      />
+    <div v-if="topDog" class="container">
+      <img id="dotd" :src="url" alt="dog of the day" />
       <h3>
-        <b>Husky</b>
+        <b>{{ topDog.breed }}</b>
       </h3>
     </div>
     <div v-if="!voted">
@@ -42,14 +38,15 @@ export default {
   data: function() {
     return {
       picked: "",
-      error: ""
+      error: "",
     };
   },
   props: {
     candidates: Array,
-    voted: Boolean
+    voted: Boolean,
+    topDog: Object,
+    url: String
   },
-
   methods: {
     async handleSubmit(id) {
       try {
@@ -59,7 +56,7 @@ export default {
       } catch (e) {
         this.error = e.message;
       }
-    }
+    },
   }
 };
 </script>

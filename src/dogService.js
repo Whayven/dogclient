@@ -20,6 +20,20 @@ class dogService {
     });
   }
 
+  static getTopImage(dog_name) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await axios.get(
+          `https://dog.ceo/api/breed/${dog_name}/images/random`
+        );
+        const data = res.data;
+        resolve(data.message);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
   static getSelectDogs() {
     return new Promise(async (resolve, reject) => {
       try {
@@ -35,7 +49,6 @@ class dogService {
       }
     });
   }
-
   static updateDog(id) {
     return axios.put(`${url}/${id}`);
   }

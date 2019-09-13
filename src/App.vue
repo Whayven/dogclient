@@ -1,7 +1,14 @@
 <template>
   <div id="app">
     <Navigation />
-    <router-view :allDogs="dogs" :candidates="selectDogs" :voted="voted" @submit="voteResults" />
+    <router-view
+      :allDogs="dogs"
+      :candidates="selectDogs"
+      :voted="voted"
+      :topDog="topDog"
+      :url="url"
+      @submit="voteResults"
+    />
     <footer style="text-align: center">
       <small>
         Copyright&copy;
@@ -24,7 +31,8 @@ export default {
     return {
       dogs: [],
       selectDogs: [],
-      voted: false
+      voted: false,
+      url: ""
     };
   },
   methods: {
@@ -33,15 +41,41 @@ export default {
         await dogService.updateDog(id);
         this.selectDogs = await dogService.getSelectDogs();
         this.voted = true;
+        let string = this.topDog.breed.toLowerCase();
+        if (string.includes(" ")) {
+          this.url = await dogService.getTopImage(this.reverseWords(string));
+        } else {
+          this.url = await dogService.getTopImage(string);
+        }
       } catch (e) {
         this.error = e.message;
       }
+    },
+    reverseWords(s) {
+      return s
+        .split(" ")
+        .reverse()
+        .join("/");
+    }
+  },
+  computed: {
+    topDog() {
+      return this.selectDogs.sort((x, y) => {
+        return y.score - x.score;
+      })[0];
     }
   },
   async created() {
     try {
       this.dogs = await dogService.getDogs();
       this.selectDogs = await dogService.getSelectDogs();
+      let string = this.topDog.breed.toLowerCase();
+      if (string.includes(" ")) {
+        console.log("ye");
+        this.url = await dogService.getTopImage(this.reverseWords(string));
+      } else {
+        this.url = await dogService.getTopImage(string);
+      }
     } catch (e) {
       this.error = e.message;
     }
