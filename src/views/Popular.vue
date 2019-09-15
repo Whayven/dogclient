@@ -1,10 +1,10 @@
 <template>
   <div>
     <h3 class="title">Dog of the Day</h3>
-    <div v-if="topDog" class="container">
-      <img id="dotd" :src="url" alt="dog of the day" />
+    <div v-if="dogOfTheDay" class="container">
+      <img id="dotd" :src="image" alt="dog of the day" />
       <h3>
-        <b>{{ topDog.breed }}</b>
+        <b>{{ dogOfTheDay.breed }}</b>
       </h3>
     </div>
     <div v-if="!voted">
@@ -12,19 +12,19 @@
       <div class="container">
         <h3>Vote for dog of the day</h3>
         <ul class="form">
-          <li v-for="dog in candidates" v-bind:key="dog._id">
-            <input type="radio" :name="dog._id" :id="dog._id" :value="dog._id" v-model="picked" />
+          <li v-for="dog in allCandidates" v-bind:key="dog._id">
+            <input type="radio" :name="dog._id" :id="dog._id" :value="dog" v-model="picked" />
             <label for="dog._id">{{dog.breed}}</label>
           </li>
         </ul>
-        <button type="submit" v-on:click.prevent="handleSubmit(picked)">Submit</button>
+        <button type="submit" v-on:click.prevent="updateDog(picked)">Submit</button>
       </div>
     </div>
     <div v-else-if="voted">
       <h3 class="title" style="margin-bottom: 0">Results</h3>
       <div class="container">
         <ul class="form" style="padding-left: 0">
-          <li v-for="dog in candidates" v-bind:key="dog._id">
+          <li v-for="dog in allCandidates" v-bind:key="dog._id">
             <p>{{dog.breed}} : {{dog.score}}</p>
           </li>
         </ul>
@@ -34,29 +34,33 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   data: function() {
     return {
-      picked: "",
-      error: "",
+      picked: ""
     };
   },
-  props: {
-    candidates: Array,
-    voted: Boolean,
-    topDog: Object,
-    url: String
+  watch: {
+    async voted() {
+      await this.fetchCandidates(); 
+    }
   },
   methods: {
-    async handleSubmit(id) {
-      try {
-        if (id) {
-          this.$emit("submit", id);
-        }
-      } catch (e) {
-        this.error = e.message;
-      }
-    },
+    ...mapActions(["fetchCandidates", "fetchImage", "updateDog"]),
+  },
+  computed: {
+    ...mapGetters(["allCandidates", "image", "voted"]),
+    dogOfTheDay() {
+      return this.allCandidates.sort((x, y) => {
+        return y.score - x.score;
+      })[0];
+    }
+  },
+  async created() {
+    await this.fetchCandidates();
+    await this.fetchImage(this.dogOfTheDay.breed);
   }
 };
 </script>

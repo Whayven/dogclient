@@ -1,14 +1,7 @@
 <template>
   <div id="app">
     <Navigation />
-    <router-view
-      :allDogs="dogs"
-      :candidates="selectDogs"
-      :voted="voted"
-      :topDog="topDog"
-      :url="url"
-      @submit="voteResults"
-    />
+    <router-view/>
     <footer style="text-align: center">
       <small>
         Copyright&copy;
@@ -20,7 +13,7 @@
 
 <script>
 import Navigation from "./components/Navigation";
-import dogService from "./dogService";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -29,57 +22,14 @@ export default {
   },
   data: function() {
     return {
-      dogs: [],
-      selectDogs: [],
-      voted: false,
-      url: ""
     };
   },
   methods: {
-    async voteResults(id) {
-      try {
-        await dogService.updateDog(id);
-        this.selectDogs = await dogService.getSelectDogs();
-        this.voted = true;
-        let string = this.topDog.breed.toLowerCase();
-        if (string.includes(" ")) {
-          this.url = await dogService.getTopImage(this.reverseWords(string));
-        } else {
-          this.url = await dogService.getTopImage(string);
-        }
-      } catch (e) {
-        this.error = e.message;
-      }
-    },
-    reverseWords(s) {
-      return s
-        .split(" ")
-        .reverse()
-        .join("/");
-    }
+    ...mapActions(["fetchDogs", "updateDog"]),
   },
   computed: {
-    topDog() {
-      return this.selectDogs.sort((x, y) => {
-        return y.score - x.score;
-      })[0];
-    }
+    ...mapGetters(["allDogs"]),
   },
-  async created() {
-    try {
-      this.dogs = await dogService.getDogs();
-      this.selectDogs = await dogService.getSelectDogs();
-      let string = this.topDog.breed.toLowerCase();
-      if (string.includes(" ")) {
-        console.log("ye");
-        this.url = await dogService.getTopImage(this.reverseWords(string));
-      } else {
-        this.url = await dogService.getTopImage(string);
-      }
-    } catch (e) {
-      this.error = e.message;
-    }
-  }
 };
 </script>
 

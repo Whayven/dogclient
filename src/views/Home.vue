@@ -52,9 +52,6 @@
 <script>
 export default {
   name: "Home",
-  props: {
-    allDogs: Array
-  }
 };
 </script>
 
