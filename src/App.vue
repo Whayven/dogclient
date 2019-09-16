@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Navigation />
-    <router-view/>
+    <div class="wrapper">
+      <router-view/>
+    </div>
     <footer style="text-align: center">
       <small>
         Copyright&copy;
@@ -34,19 +36,26 @@ export default {
 </script>
 
 <style>
-template {
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-}
+@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap');
 #app {
   margin-left: auto;
   margin-right: auto;
-  width: 80%;
+  font-family: 'Raleway', sans-serif;
+  width: 100%;
 }
+
+.wrapper {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .title {
-  background-color: #ffee00;
+  background-color: rgba(230, 226, 223, 0.329);
   text-align: center;
   line-height: 150%;
+  margin-bottom: 0;
+  border-radius: 2px;
+
 }
 </style>

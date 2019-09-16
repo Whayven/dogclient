@@ -1,39 +1,21 @@
 <template>
   <div class="home">
-    <img alt="dogs" src="../assets/banner2.jpg" class="banner-image" />
-    <hr />
-    restyle branch
-
-    <blockquote class="colorful">
-      <em>A dog is the only thing on earth that loves you more than you love yourself. - Josh Billings</em>
-    </blockquote>
-    <div class="container">
-      <dl>
-        <dt>Dogs are man's best friend</dt>
-        <dd>Dogs are reliable</dd>
-        <dd>Dogs are loyal</dd>
-        <dd>Dogs are gracious</dd>
-      </dl>
+    <div class="wrapper">
+      <h3 class="header colorful">Welcome to Dog Island</h3>
+      <div class="card">
+        <span>Dog Island has just gone through a massive overhaul, from the web design to the server-side code running on the back end. A lot of changes have been made to make this website an awesome experience, and I will continue to put my best foot forward when it comes to developing this experience.</span>
+      </div>
     </div>
 
-    <h3 class="title">Types of dogs</h3>
-    <div class="dog-list">
-      <ul class="dog-list-left">
-        <li>Shiba Inu</li>
-        <li>Husky</li>
-        <li>Labrador Retriver</li>
-        <li>Alaskan Malamute</li>
-        <li>Golden Retriever</li>
-        <li>Pitbull</li>
-      </ul>
-      <ul>
-        <li>Akita</li>
-        <li>American Foxhound</li>
-        <li>Corgi</li>
-        <li>German Shephard</li>
-        <li>Australian Shepherd</li>
-        <li>Barbet</li>
-      </ul>
+    <h3 class="title">The Goal</h3>
+    <div class="card">
+      <span>You must be wondering, what is this all about? Dog Island is simply a pet appreciation project design for you guys to see cool pictures of dogs and maybe get some cool stuff out of it. My current plans include:
+        <ul>
+          <li>Dog gallery</li>
+          <li>Hall of fame for dog the day winners</li>
+          <li>...and more!</li>
+        </ul>
+      </span>
     </div>
 
     <h3 class="title">Popular dogs</h3>
@@ -53,23 +35,43 @@
 
 <script>
 export default {
-  name: "Home",
+  name: "Home"
 };
 </script>
 
-<style scoped>
+<style>
 .banner-image {
   width: 100%;
   height: auto;
+  position: relative;
 }
 
-.dog-list {
-  display: flex;
-  justify-content: baseline;
+.header {
+  font-size: 40px;
+  text-align: center;
 }
 
-.dog-list-left {
-  width: 50%;
+.card {
+  margin-top: 0;
+  padding: 1em;
+  word-spacing: 0.2em;
+}
+
+.card span {
+  font-size: 20px;
+  display: inline-block;
+  position: relative;
+}
+
+.card span::after {
+  content: "";
+  height: 2px;
+  width: 20%;
+  background-color: rgb(209, 198, 189);
+  position: absolute;
+  bottom: -.5em;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .colorful {

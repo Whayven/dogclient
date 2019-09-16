@@ -1,16 +1,16 @@
 <template>
   <div>
-    <h3 class="title">Dog of the Day</h3>
+    <h3 class="header colorful">Dog of the Day</h3>
     <div v-if="dogOfTheDay" class="container">
-      <img id="dotd" :src="image" alt="dog of the day" />
-      <h3>
+      <h3 class="colorful">
         <b>{{ dogOfTheDay.breed }}</b>
       </h3>
+      <img id="dotd" :src="image" alt="dog of the day"/>
+      
     </div>
     <div v-if="!voted">
-      <h3 class="title">Voting</h3>
+      <h3 class="title">Vote for Dog of the Day</h3>
       <div class="container">
-        <h3>Vote for dog of the day</h3>
         <ul class="form">
           <li v-for="dog in allCandidates" v-bind:key="dog._id">
             <input type="radio" :name="dog._id" :id="dog._id" :value="dog" v-model="picked" />
@@ -75,8 +75,7 @@ export default {
 }
 
 #dotd {
-  width: 50%;
-  height: auto;
+  width: 50vh;
 }
 
 .container h3 {
@@ -84,6 +83,7 @@ export default {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
+  font-size: 20px;
 }
 
 .container img {
@@ -96,5 +96,21 @@ export default {
 
 .form li {
   line-height: 1.8em;
+  font-size: 20px;
+}
+
+button {
+  border-radius: 2px;
+  border: 1px solid rgba(50, 226, 15, 0.815);
+  background-color: rgba(50, 226, 15, 0.815);
+  padding: 5px;
+  color: white;
+  font-weight: 600;
+}
+
+button:hover {
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 </style>
