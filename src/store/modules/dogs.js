@@ -39,9 +39,6 @@ const actions = {
   async updateDog({ commit }, updDog) {
     await axios.put(`${url}/${updDog._id}`);
     commit("setVote");
-  },
-  vote({ commit }) {
-    commit("setVote");
   }
 };
 
