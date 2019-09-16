@@ -2,6 +2,8 @@
   <div class="home">
     <img alt="dogs" src="../assets/banner2.jpg" class="banner-image" />
     <hr />
+    restyle branch
+
     <blockquote class="colorful">
       <em>A dog is the only thing on earth that loves you more than you love yourself. - Josh Billings</em>
     </blockquote>
