@@ -6,7 +6,7 @@ import Home from "./views/Home.vue";
 Vue.use(Auth, {
   issuer: "https://dev-492717.okta.com/oauth2/default",
   client_id: "0oa1d67frxty99puM357",
-  redirect_uri: "http://localhost:8080/implicit/callback",
+  redirect_uri: "https://dog-island.social/implicit/callback",
   scope: "openid profile email",
   pkce: true
 });
