@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "http://dog-balancer-291881508.us-east-1.elb.amazonaws.com/dogs";
+const url = "http://localhost:5000/dogs";
 const pic_url = "https://dog.ceo/api/breed";
 
 const state = {
