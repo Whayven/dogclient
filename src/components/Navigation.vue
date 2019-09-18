@@ -9,12 +9,35 @@
           <router-link class="link" to="/popular">
           Popular
           </router-link>
+          <button v-if="!user" class="link" @click="login">
+          Login
+          </button>
+          <button v-else class="link" @click="logout">
+          Logout
+          </button>
         </nav>
         <h1 class="banner">Dog Island</h1>
       </div>
     </header>
   </div>
 </template>
+
+<script>
+import { mapGetters, mapActions } from "vuex";
+
+export default {
+  name: "Navigation",
+  methods: {
+    ...mapActions(["fetchUser", "logout"]),
+    login() {
+      this.$auth.loginRedirect()
+    },
+  },
+  computed: {
+    ...mapGetters(["user"]),
+  },
+};
+</script>
 
 <style scoped>
 .banner-container .banner {
@@ -55,6 +78,7 @@
   text-decoration: none;
   font-size: 1.1em;
   color: black;
+  padding: 0;
 }
 .link:hover {
   color: rgb(255, 217, 0);

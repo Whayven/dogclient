@@ -22,21 +22,31 @@ export default {
   components: {
     Navigation
   },
-  data: function() {
-    return {
-    };
+  async created() {
+    await this.fetchUser()
+  },
+  watch: {
+    '$route': 'onRouteChange'
   },
   methods: {
-    ...mapActions(["fetchDogs", "updateDog"]),
-  },
-  computed: {
-    ...mapGetters(["allDogs"]),
-  },
+    ...mapActions(["fetchUser"]),
+    async onRouteChange() {
+      await this.fetchUser()
+    }
+  }
 };
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap');
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+}
+
 #app {
   margin-left: auto;
   margin-right: auto;
