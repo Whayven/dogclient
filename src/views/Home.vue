@@ -69,7 +69,7 @@ export default {
   width: 20%;
   background-color: rgb(209, 198, 189);
   position: absolute;
-  bottom: -.5em;
+  bottom: -0.5em;
   left: 50%;
   transform: translate(-50%);
 }
